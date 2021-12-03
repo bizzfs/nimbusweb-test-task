@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": true,
     "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
@@ -15,9 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nimbusweb-test-task/api-interfaces": [
-        "libs/api-interfaces/src/index.ts"
-      ]
+      "@nimbusweb-test-task/ws-interfaces": ["libs/ws-interfaces/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

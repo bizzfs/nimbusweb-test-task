@@ -15,8 +15,10 @@ export class NoteModel {
   public text: string | null = null;
   @JsonProperty('sid', String)
   public sid: string | null = null;
+  @JsonProperty('timestamp', Number, true)
+  public timestamp: number | null = null;
 
-  static fromNote(note: Note): NoteModel {
+  static fromNote<T extends Note>(note: T): NoteModel {
     return Object.assign(new NoteModel(), note);
   }
   toNote = (): Note => {

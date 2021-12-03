@@ -6,12 +6,13 @@ import { configurationFactory } from './configuration';
 import { jsonConvertProvider } from './providers/json-convert.provider';
 import { NotesService } from './services/notes.service';
 import { rethinkdbProvider } from './providers/rethinkdb.provider';
+import { SessionsController } from './sessions.controller';
 import { SessionsService } from './services/sessions.service';
 import { WsGateway } from './ws.gateway';
 
 @Module({
   imports: [ConfigModule.forRoot({ load: [configurationFactory], isGlobal: true })],
-  controllers: [],
+  controllers: [SessionsController],
   providers: [AppService, WsGateway, SessionsService, NotesService, rethinkdbProvider, jsonConvertProvider],
 })
 export class AppModule {}

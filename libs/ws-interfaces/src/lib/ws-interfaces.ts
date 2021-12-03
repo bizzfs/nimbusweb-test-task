@@ -1,46 +1,82 @@
 export interface Note {
-  id: string | null;
   title: string | null;
   text: string | null;
-  sid: string | null;
 }
 
-export enum ChangeEventTypes {
-  ADD = 'Add',
-  UPDATE = 'Update',
-  DELETE = 'Delete',
+export interface StoredNote extends Note {
+  id: string;
+  timestamp: number;
 }
 
-export interface ChangeAddEvent<T> {
-  type: ChangeEventTypes.ADD;
-  newValue: T;
+export enum EventTypes {
+  ADD_REQUEST = 'addRequest', // Used to dispatch 'add' event to service
+  UPDATE_REQUEST = 'updateRequest', // Used to dispatch 'update' event to service
+  DELETE_REQUEST = 'deleteRequest', // Used to dispatch 'delete' event to service
+  ADD_CHANGE = 'addChange', // Used to receive 'add' collection change event from service
+  UPDATE_CHANGE = 'updateChange', // Used to receive 'update' collection change event from service
+  DELETE_CHANGE = 'deleteChange', // Used to receive 'delete' collection change event from service
 }
 
-export interface ChangeUpdateEvent<T> {
-  type: ChangeEventTypes.UPDATE;
-  oldValue: T;
-  newValue: T;
+export interface AddRequestEvent {
+  event: EventTypes.ADD_REQUEST;
+  data: Note;
 }
 
-export interface ChangeDeleteEvent<T> {
-  type: ChangeEventTypes.DELETE;
-  oldValue: T;
+export interface UpdateRequestEvent {
+  event: EventTypes.UPDATE_REQUEST;
+  data: Note;
 }
 
-export const createChangeAddEvent = <T>(newValue: T): ChangeAddEvent<T> => ({
-  type: ChangeEventTypes.ADD,
-  newValue,
+export interface DeleteRequestEvent {
+  event: EventTypes.DELETE_REQUEST;
+  data: { id: string };
+}
+
+export interface AddChangeEvent {
+  event: EventTypes.ADD_CHANGE;
+  data: { newValue: StoredNote };
+}
+
+export interface UpdateChangeEvent {
+  event: EventTypes.UPDATE_CHANGE;
+  data: { oldValue: StoredNote; newValue: StoredNote };
+}
+
+export interface DeleteChangeEvent {
+  event: EventTypes.DELETE_CHANGE;
+  data: { oldValue: StoredNote };
+}
+
+export const createAddRequestEvent = (note: Note): AddRequestEvent => ({
+  event: EventTypes.ADD_REQUEST,
+  data: note,
 });
 
-export const createChangeUpdateEvent = <T>(oldValue: T, newValue: T): ChangeUpdateEvent<T> => ({
-  type: ChangeEventTypes.UPDATE,
-  oldValue,
-  newValue,
+export const createUpdateRequestEvent = (note: Note): UpdateRequestEvent => ({
+  event: EventTypes.UPDATE_REQUEST,
+  data: note,
 });
 
-export const createChangeDeleteEvent = <T>(oldValue: T): ChangeDeleteEvent<T> => ({
-  type: ChangeEventTypes.DELETE,
-  oldValue,
+export const createDeleteRequestEvent = (id: string): DeleteRequestEvent => ({
+  event: EventTypes.DELETE_REQUEST,
+  data: { id },
 });
 
-export type ChangeEvents<T> = ChangeAddEvent<T> | ChangeUpdateEvent<T> | ChangeDeleteEvent<T>;
+export const createAddChangeEvent = (newValue: StoredNote): AddChangeEvent => ({
+  event: EventTypes.ADD_CHANGE,
+  data: { newValue },
+});
+
+export const createUpdateChangeEvent = (oldValue: StoredNote, newValue: StoredNote): UpdateChangeEvent => ({
+  event: EventTypes.UPDATE_CHANGE,
+  data: { oldValue, newValue },
+});
+
+export const createDeleteChangeEvent = (oldValue: StoredNote): DeleteChangeEvent => ({
+  event: EventTypes.DELETE_CHANGE,
+  data: { oldValue },
+});
+
+export type RequestEvents = AddRequestEvent | UpdateRequestEvent | DeleteRequestEvent;
+export type ChangeEvents = AddChangeEvent | UpdateChangeEvent | DeleteChangeEvent;
+export type Events = RequestEvents | ChangeEvents;

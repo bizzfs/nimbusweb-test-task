@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: '<app-core></app-core>',
+  selector: 'app-core',
+  template: '<div>Hi</div><router-outlet></router-outlet>shit',
+  styleUrls: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class CoreComponent {}

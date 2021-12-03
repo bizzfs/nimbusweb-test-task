@@ -12,7 +12,7 @@ import { SessionModel } from '../models/session.model';
 export class AppService {
   constructor(private readonly notesService: NotesService, private readonly sessionsService: SessionsService) {}
 
-  watchNotesBySid(sid: string): Observable<ChangeEvents<NoteModel>> {
+  watchNotesBySid(sid: string): Observable<ChangeEvents> {
     return this.notesService.watchBySid(sid);
   }
 
@@ -28,7 +28,7 @@ export class AppService {
     return this.notesService.deleteById(id);
   }
 
-  createSessionIfNotExists(session: SessionModel): Promise<SessionModel> {
-    return this.sessionsService.create(session).catch(() => session);
+  createSession(): Promise<SessionModel> {
+    return this.sessionsService.create(SessionModel.fromTimestamp(Date.now()));
   }
 }

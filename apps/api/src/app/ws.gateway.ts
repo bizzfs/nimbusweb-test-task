@@ -11,8 +11,9 @@ import { Subscription } from 'rxjs';
 import { IncomingMessage } from 'http';
 import { WebSocket } from 'ws';
 
+import { EventTypes, Note } from '@nimbusweb-test-task/ws-interfaces';
+
 import { AppService } from './services/app.service';
-import { Note } from '@nimbusweb-test-task/ws-interfaces';
 import { NoteModel } from './models/note.model';
 
 @WebSocketGateway()
@@ -43,22 +44,22 @@ export class WsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
   }
 
-  @SubscribeMessage('addNote')
+  @SubscribeMessage(EventTypes.ADD_REQUEST)
   async onAddNote(@MessageBody() note: Note, @ConnectedSocket() client: WebSocket): Promise<void> {
     const sid = this.getSid(client);
     await this.appService.addNote(NoteModel.fromNote({ ...note, sid }));
   }
 
-  @SubscribeMessage('updateNote')
+  @SubscribeMessage(EventTypes.UPDATE_REQUEST)
   async onUpdateNote(@MessageBody() note: Note, @ConnectedSocket() client: WebSocket): Promise<void> {
     const sid = this.getSid(client);
     await this.appService.updateNote(NoteModel.fromNote({ ...note, sid }));
   }
 
-  @SubscribeMessage('deleteNote')
-  async onEvent(@MessageBody() note: Note, @ConnectedSocket() client: WebSocket): Promise<void> {
+  @SubscribeMessage(EventTypes.DELETE_REQUEST)
+  async onDeleteNote(@MessageBody() id: string, @ConnectedSocket() client: WebSocket): Promise<void> {
     this.getSid(client);
-    await this.appService.addNote(NoteModel.fromNote(note)).then(() => true);
+    await this.appService.deleteNoteById(id).then(() => true);
   }
 
   private getSid(client: WebSocket): string {

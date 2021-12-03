@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JsonConvert } from 'json2typescript';
-import { Changes, RCursor } from 'rethinkdb-ts/lib/types';
 import { defer, finalize, Observable } from 'rxjs';
+import { Changes, RCursor } from 'rethinkdb-ts/lib/types';
 
 import {
   ChangeEvents,
-  createChangeAddEvent,
-  createChangeDeleteEvent,
-  createChangeUpdateEvent,
+  createAddChangeEvent,
+  createDeleteChangeEvent,
+  createUpdateChangeEvent,
 } from '@nimbusweb-test-task/ws-interfaces';
 
 import { Connection, r } from 'rethinkdb-ts';
@@ -21,11 +21,19 @@ export class NotesService extends RepositoryService<NoteModel> {
     super(jsonConvert, connection, NoteModel);
   }
 
-  watchBySid(sid: string): Observable<ChangeEvents<NoteModel>> {
+  create(model: NoteModel): Promise<NoteModel> {
+    return super.create(NoteModel.fromNote({ ...model, timestamp: Date.now() }));
+  }
+
+  update(model: NoteModel): Promise<NoteModel> {
+    return super.update(NoteModel.fromNote({ ...model, timestamp: Date.now() }));
+  }
+
+  watchBySid(sid: string): Observable<ChangeEvents> {
     return defer(() => {
       let cursor: RCursor;
 
-      return new Observable<ChangeEvents<NoteModel>>((subscriber) => {
+      return new Observable<ChangeEvents>((subscriber) => {
         r.table(this.table)
           .filter(r.row('sid').eq(sid))
           .changes({ squash: true, includeInitial: true, includeStates: true })
@@ -37,15 +45,15 @@ export class NotesService extends RepositoryService<NoteModel> {
                 const oldValue = res.old_val && this.jsonConvert.deserializeObject(res.old_val, NoteModel);
                 const newValue = res.new_val && this.jsonConvert.deserializeObject(res.new_val, NoteModel);
                 if (oldValue == null && newValue != null) {
-                  subscriber.next(createChangeAddEvent(newValue));
+                  subscriber.next(createAddChangeEvent(newValue));
                   return;
                 }
                 if (oldValue != null && newValue != null) {
-                  subscriber.next(createChangeUpdateEvent(oldValue, newValue));
+                  subscriber.next(createUpdateChangeEvent(oldValue, newValue));
                   return;
                 }
                 if (oldValue == null && newValue != null) {
-                  subscriber.next(createChangeDeleteEvent(oldValue));
+                  subscriber.next(createDeleteChangeEvent(oldValue));
                   return;
                 }
               },

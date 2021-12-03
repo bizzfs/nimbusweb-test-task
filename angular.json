@@ -84,7 +84,6 @@
             "polyfills": "apps/webapp/src/polyfills.ts",
             "tsConfig": "apps/webapp/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["apps/webapp/src/favicon.ico", "apps/webapp/src/assets"],
             "styles": ["apps/webapp/src/styles.scss"],
             "scripts": []
           },
@@ -108,7 +107,16 @@
                   "with": "apps/webapp/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "assets": [
+                "apps/webapp/src/favicon.ico",
+                "apps/webapp/src/assets",
+                {
+                  "glob": "env.js",
+                  "input": "apps/webapp/src/environments/production",
+                  "output": "/"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -116,7 +124,16 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "assets": [
+                "apps/webapp/src/favicon.ico",
+                "apps/webapp/src/assets",
+                {
+                  "glob": "env.js",
+                  "input": "apps/webapp/src/environments/development",
+                  "output": "/"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -145,10 +162,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/webapp/src/**/*.ts",
-              "apps/webapp/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/webapp/src/**/*.ts", "apps/webapp/src/**/*.html"]
           }
         },
         "test": {

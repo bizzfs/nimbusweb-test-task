@@ -1683,6 +1683,34 @@
     object-hash "2.2.0"
     tslib "2.3.1"
 
+"@ngrx/effects@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-13.0.1.tgz#93f78c54959f747fa344744d365a59dfce978285"
+  integrity sha512-MsQuR+ufK9xTBKmzpt9P32BEuXVtu6bxIBw7LmrR73MyMsmpXcrdvdax9CIPCugOEITXcfcoJfj8iT+WPoAHmQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/entity@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-13.0.1.tgz#4ecc58c25c0bc6a97352f79f7fb403fe4a4a3b0f"
+  integrity sha512-EFCJJ9lsMSzMNVGxqSg0lElQjnhq5u1sGWuHQEfw80AnuDbLP1GjsVi1rA5vDYHZlLRpewtHwQl0FjL7zsURnQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/store-devtools@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-13.0.1.tgz#bd1c2e4de1195fae9785cf79a3e5bfb6d51a8b6b"
+  integrity sha512-iIdneTVMiyCWZKxaG7KPLTfrkCIKGrQ61W1ay0PhbqjZE7jgY/TRsp7OWai9WzBStxjU+gunEocEA7dPL0hYIQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@ngrx/store@^13.0.1":
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-13.0.1.tgz#85ad5335292d37f2554f9a16cdc80646e8eebee9"
+  integrity sha512-YCArklbrZNeFN9I2Ibvl+M8sgepwY36n1aGzyEL6R4iK6VWaqpJAwOIlQ+41qyztelallyzz5waQmCLa+OQ38w==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@13.0.3":
   version "13.0.3"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-13.0.3.tgz#ec31dfa49dae79aeee68cc970fea6f5fd9ebc76d"
@@ -2285,6 +2313,11 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.1.tgz#20f18294f797f2209b5f65c8e3b5c8e8261d127c"
   integrity sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==
+
+"@types/uuid@^8.3.3":
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.3.tgz#c6a60686d953dbd1b1d45e66f4ecdbd5d471b4d0"
+  integrity sha512-0LbEEx1zxrYB3pgpd1M5lEhLcXjKJnYghvhTRgaBeUivLHMDM1TzF3IJ6hXU2+8uA4Xz+5BA63mtZo5DjVT8iA==
 
 "@types/webpack-sources@^0.1.5":
   version "0.1.9"

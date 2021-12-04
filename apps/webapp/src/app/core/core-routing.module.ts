@@ -6,16 +6,7 @@ import { NotesComponent } from './components/notes.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '/notes',
-  },
-  {
-    path: 'notes',
     component: NotesComponent,
-  },
-  {
-    path: '**',
-    redirectTo: '/notes',
   },
 ];
 

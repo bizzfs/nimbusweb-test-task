@@ -1,5 +1,52 @@
-rethinkdb:
-  image: rethinkdb:2.4.0
-  ports:
-    - '127.0.0.1:28015:28015'
-    - '127.0.0.1:8080:8080'
+version: '3.9'
+
+services:
+  rethinkdb:
+    image: rethinkdb:2.4.0
+    ports:
+      - '127.0.0.1:28015:28015'
+      - '127.0.0.1:8081:8080' # admin dashboard
+    networks:
+      - default
+
+  migrations:
+    image: migrations:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./migrations/
+    environment:
+      DB_HOST: rethinkdb
+      DB_PORT: 28015
+      DB_NAME: nimbusweb
+
+  api:
+    image: api:latest
+    build:
+      dockerfile: apps/api/Dockerfile
+      context: .
+    ports:
+      - '127.0.0.1:3333:3333'
+    environment:
+      DB_HOST: rethinkdb
+      DB_PORT: 28015
+      DB_NAME: nimbusweb
+    networks:
+      - default
+    depends_on:
+      - rethinkdb
+
+  webapp:
+    image: webapp:latest
+    build:
+      dockerfile: apps/webapp/Dockerfile
+      context: .
+    ports:
+      - '127.0.0.1:8080:80'
+    environment:
+      API_URL: 'http://127.0.0.1:3333/api'
+      WS_URL: 'ws://127.0.0.1:3333'
+    depends_on:
+      - api
+
+networks:
+  default:

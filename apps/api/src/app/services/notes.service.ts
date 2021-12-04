@@ -52,7 +52,7 @@ export class NotesService extends RepositoryService<NoteModel> {
                   subscriber.next(createUpdateChangeEvent(oldValue, newValue));
                   return;
                 }
-                if (oldValue == null && newValue != null) {
+                if (oldValue != null && newValue == null) {
                   subscriber.next(createDeleteChangeEvent(oldValue));
                   return;
                 }

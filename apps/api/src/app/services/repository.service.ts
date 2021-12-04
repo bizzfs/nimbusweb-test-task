@@ -33,7 +33,7 @@ export class RepositoryService<T extends { id: string | null }> {
     if (!model.id) throw new Error('no id was provided');
     return r
       .table(this.table)
-      .insert(this.jsonConvert.serializeObject(model))
+      .insert(this.jsonConvert.serializeObject(model), { conflict: 'update' })
       .run(this.connection)
       .then(() => model);
   }

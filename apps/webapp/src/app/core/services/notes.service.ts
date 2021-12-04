@@ -8,6 +8,7 @@ import {
   createUpdateRequestEvent,
   Events,
   Note,
+  UpdateNotePayload,
 } from '@nimbusweb-test-task/ws-interfaces';
 
 import { ENV } from '../../env.provider';
@@ -31,7 +32,7 @@ export class NotesService {
     this.wsSubj$?.next(createAddRequestEvent(note));
   }
 
-  updateNote(note: Note): void {
+  updateNote(note: UpdateNotePayload): void {
     this.wsSubj$?.next(createUpdateRequestEvent(note));
   }
 

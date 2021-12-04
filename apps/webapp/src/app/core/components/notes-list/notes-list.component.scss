@@ -1,0 +1,68 @@
+@import 'apps/webapp/src/scss/variables';
+
+:host {
+  display: block;
+  overflow: auto;
+  flex: 0 auto;
+
+  .notes-container {
+    height: 100%;
+
+    .note {
+      display: flex;
+      border-bottom: $border;
+
+      &.selected {
+        background-color: #938f8f;
+      }
+
+      .note-info {
+        flex: 1;
+        min-width: 0;
+
+        .note-title {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          padding: 10px;
+          font-weight: 600;
+        }
+
+        .note-timestamp {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          padding: 0 10px 10px 10px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .delete-btn-container {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+
+        .delete-btn {
+          font-size: 25px;
+          font-weight: 100;
+          color: #fff;
+          border-radius: 20px;
+          border: none;
+          background-color: transparent;
+          margin: auto;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .no-notes-placeholder {
+    text-align: center;
+    margin: 10px;
+  }
+}

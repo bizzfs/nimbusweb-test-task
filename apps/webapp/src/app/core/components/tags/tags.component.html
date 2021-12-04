@@ -1,0 +1,7 @@
+<ng-container *ngIf="{ tags: tags$ | async, selectedTag: selectedTag$ | async } as data">
+  <div *ngFor="let tag of data.tags; let i = index; trackBy: trackBy">
+    <button class="tag tag-btn" (click)="toggleTag(tag)" [ngClass]="{ selected: tag === data.selectedTag }">
+      {{ tag }}
+    </button>
+  </div>
+</ng-container>

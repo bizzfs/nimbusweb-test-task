@@ -1,0 +1,18 @@
+<div class="notes-container" *ngIf="{ notes: notes$ | async, selectedNoteId: selectedNoteId$ | async } as data">
+  <div
+    class="note"
+    *ngFor="let note of data.notes; let i = index"
+    [ngClass]="{ selected: note.id === data.selectedNoteId }"
+  >
+    <div class="note-info" (click)="selectNote(note.id)">
+      <div class="note-title" [ngClass]="{}">
+        {{ note.title }}
+      </div>
+      <div class="note-timestamp">
+        {{ note.timestamp | date: 'dd.MM.yyyy HH:mm' }}
+      </div>
+    </div>
+    <div class="delete-btn-container"><button class="delete-btn" (click)="deleteNote(note.id)">&#215;</button></div>
+  </div>
+  <div *ngIf="data.notes?.length === 0" class="no-notes-placeholder">Add a note by clicking + button</div>
+</div>

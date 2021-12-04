@@ -1,0 +1,27 @@
+@import 'apps/webapp/src/scss/variables';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-top: $border;
+
+  padding: 10px;
+
+  .tag-btn {
+    border: none;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: #144a78;
+    }
+  }
+}

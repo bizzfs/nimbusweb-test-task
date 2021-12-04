@@ -1,0 +1,16 @@
+@import 'apps/webapp/src/scss/variables';
+
+:host {
+  display: block;
+  background-color: $back-color-dark;
+  width: 100%;
+
+  input {
+    width: 100%;
+    background-color: $back-color-light;
+    font-size: 20px;
+    line-height: 28px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 10px;
+  }
+}

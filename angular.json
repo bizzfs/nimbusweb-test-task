@@ -73,7 +73,7 @@
       "projectType": "application",
       "root": "apps/webapp",
       "sourceRoot": "apps/webapp/src",
-      "prefix": "nimbusweb-test-task",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

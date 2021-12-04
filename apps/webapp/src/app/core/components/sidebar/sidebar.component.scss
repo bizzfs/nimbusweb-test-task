@@ -1,0 +1,37 @@
+@import './apps/webapp/src/scss/variables';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: $back-color-dark;
+  border-right: $border;
+
+  .search-block {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    min-height: $app-header-height;
+    padding: 10px;
+    border-bottom: $border;
+
+    > *:first-child {
+      margin-right: 10px;
+    }
+
+    button {
+      font-size: 24px;
+      border-radius: 10px;
+      border: none;
+      background-color: $blue-color;
+      color: #fff;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  app-notes-list {
+    flex: 1;
+  }
+}

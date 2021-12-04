@@ -1,0 +1,17 @@
+<form *ngIf="{ selectedNote: selectedNote$ | async, isEditingText: isEditingText$ | async } as data" [formGroup]="form">
+  <ng-container *ngIf="data.selectedNote">
+    <div class="title-container">
+      <input class="title-input" formControlName="title" placeholder="Enter note name here" />
+    </div>
+    <div *ngIf="data.isEditingText" class="text-container">
+      <textarea #textAreaElement class="text-input" formControlName="text" (blur)="toggleTextEdit()"></textarea>
+    </div>
+    <div
+      *ngIf="!data.isEditingText"
+      class="formatted-text-container"
+      (click)="toggleTextEdit()"
+      [innerHtml]="getTextFormValue() || 'Enter note text here'"
+    ></div>
+  </ng-container>
+  <div class="no-selection-placeholder" *ngIf="!data.selectedNote">No note selected yet</div>
+</form>
